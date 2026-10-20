@@ -1,8 +1,13 @@
 using System.Runtime.InteropServices;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class playercontroller : MonoBehaviour
 {
+    [SerializeField]
+    float jumpforce = 1000;
+    [SerializeField]
+    float walkspeed = 40;
     Rigidbody2D rb;
     void Start()
     {
@@ -10,11 +15,14 @@ public class playercontroller : MonoBehaviour
     }
     void Update()
     {
-    
-    } 
-    void OnJump(Input value)
-        {
-            print("Jump");
-            rb.AddForce(Vector2.up * 2000);
-        }
+rb.linearVelocityX = movementX * walkspeed;
+    }
+    void OnJump(InputValue value)
+    {
+        rb.AddForce(Vector2.up * jumpforce);
+    }
+    void OnMove(InputValue value)
+    {
+        movementX = value.Get<Vector2>().x;
+    }
 }
