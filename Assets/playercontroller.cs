@@ -1,4 +1,3 @@
-using System.Runtime.InteropServices;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -11,6 +10,10 @@ public class playercontroller : MonoBehaviour
     Rigidbody2D rb;
     SpriteRenderer sr;
     private float movementX;
+    [SerializeField]
+    GameObject bluenotePrefab;
+    [SerializeField]
+    Transform shootingpoints;
 
     void Start()
     {
@@ -27,7 +30,7 @@ public class playercontroller : MonoBehaviour
     }
     void OnMove(InputValue value)
     {
-    
+
 
         movementX = value.Get<Vector2>().x;
 
@@ -39,5 +42,15 @@ public class playercontroller : MonoBehaviour
         {
             sr.flipX = false;
         }
+    }
+    void OnFire(InputValue value)
+    {
+        Debug.Log("HELLO");
+        if (value.isPressed)
+        {
+            GameObject bluenote = Instantiate(bluenotePrefab, shootingpoints.position, Quaternion.identity);
+        }
+        float direction = sr.flipX ? -1f : 1f;
+        bluenotePrefab.GetComponent<projectilebluenote>().SetDirection(direction);
     }
 }
