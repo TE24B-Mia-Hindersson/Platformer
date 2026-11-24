@@ -8,7 +8,7 @@ public class projectilebluenote : MonoBehaviour
     [SerializeField]
     float lifetime = 3f;
     float direction = 1f;
-    
+
     void Start()
     {
         Destroy(gameObject, lifetime);
@@ -16,21 +16,22 @@ public class projectilebluenote : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector2.right * speed * Time.deltaTime);
+        transform.Translate(Vector2.right * speed * direction * Time.deltaTime);
     }
     public void SetDirection(float newDirection)
     {
         direction = newDirection;
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+   void OnTriggerEnter2D(Collider2D collision)
+{
+    if (collision.CompareTag("phantom"))
     {
-        if(collision.CompareTag("phantom"))
-        {
-            Destroy(collision.gameObject);
-            Destroy(gameObject);
-        }
+        collision.GetComponent<phantomhealth>().TakeDamage();
+
+        Destroy(gameObject);
     }
-    
+}
+
 
 }

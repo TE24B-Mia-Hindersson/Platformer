@@ -97,7 +97,7 @@
                     "priority": 0
                 },
                 {
-                    "name": "shoot",
+                    "name": "Fire",
                     "type": "Button",
                     "id": "087a9e64-d3e8-4c7e-a2de-d01862454352",
                     "expectedControlType": "",
@@ -500,7 +500,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
-                    "action": "shoot",
+                    "action": "Fire",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

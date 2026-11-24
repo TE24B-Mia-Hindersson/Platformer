@@ -4,6 +4,8 @@ using UnityEngine.InputSystem;
 public class playercontroller : MonoBehaviour
 {
     [SerializeField]
+    Sprite[] christineSprites;
+    [SerializeField]
     float jumpforce = 1000;
     [SerializeField]
     float walkspeed = 40;
@@ -14,6 +16,10 @@ public class playercontroller : MonoBehaviour
     GameObject bluenotePrefab;
     [SerializeField]
     Transform shootingpoints;
+    [SerializeField]
+    float shootCooldown = 0.5f;
+    bool isshooting = false;
+    float shoottimer = 0f;
 
     void Start()
     {
@@ -23,6 +29,16 @@ public class playercontroller : MonoBehaviour
     void Update()
     {
         rb.linearVelocityX = movementX * walkspeed;
+        if (isshooting)
+        {
+            shoottimer -= Time.deltaTime;
+
+            if (shoottimer <= 0)
+            {
+                shoot();
+                shoottimer = shootCooldown;
+            }
+        }
     }
     void OnJump(InputValue value)
     {
@@ -45,12 +61,18 @@ public class playercontroller : MonoBehaviour
     }
     void OnFire(InputValue value)
     {
-        Debug.Log("HELLO");
-        if (value.isPressed)
-        {
-            GameObject bluenote = Instantiate(bluenotePrefab, shootingpoints.position, Quaternion.identity);
-        }
+        isshooting = value.isPressed;
+    }
+    void shoot()
+    {
+        GameObject bluenote = Instantiate(bluenotePrefab, shootingpoints.position, Quaternion.identity);
+
         float direction = sr.flipX ? -1f : 1f;
-        bluenotePrefab.GetComponent<projectilebluenote>().SetDirection(direction);
+
+        bluenote.GetComponent<projectilebluenote>().SetDirection(direction);
+    }
+    void ChangeSprite(int spriteNumber)
+    {
+        sr.sprite = christineSprites[spriteNumber];
     }
 }
