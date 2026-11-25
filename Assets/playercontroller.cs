@@ -17,7 +17,7 @@ public class playercontroller : MonoBehaviour
     [SerializeField]
     Transform shootingpoints;
     [SerializeField]
-    float shootCooldown = 0.5f;
+    float shootCooldown = 2f;
     bool isshooting = false;
     float shoottimer = 0f;
 

@@ -6,7 +6,7 @@ public class projectilebluenote : MonoBehaviour
     [SerializeField]
     float speed = 8f;
     [SerializeField]
-    float lifetime = 3f;
+    float lifetime = 1f;
     float direction = 1f;
 
     void Start()
@@ -23,11 +23,16 @@ public class projectilebluenote : MonoBehaviour
         direction = newDirection;
     }
 
-   void OnTriggerEnter2D(Collider2D collision)
+void OnTriggerEnter2D(Collider2D collision)
 {
     if (collision.CompareTag("phantom"))
     {
-        collision.GetComponent<phantomhealth>().TakeDamage();
+        phantomhealth health = collision.GetComponent<phantomhealth>();
+
+        if (health != null)
+        {
+            health.TakeDamage();
+        }
 
         Destroy(gameObject);
     }

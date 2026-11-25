@@ -3,7 +3,7 @@ using UnityEngine;
 public class phantomhealth : MonoBehaviour
 {
     [SerializeField]
-    int health = 3;
+    int health = 30;
 
     public void TakeDamage()
     {
